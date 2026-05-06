@@ -59,7 +59,7 @@ def admin_login():
     return render_template("admin_login.html")
 
 # 🔐 PROTECTED ADMIN PANEL
-@app.route('/admin', methods=['GET'])
+@app.route('/admin', methods=['GET','POST'])
 def admin():
     if not session.get('admin'):
         return redirect('/admin-login')
