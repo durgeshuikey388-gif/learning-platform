@@ -7,7 +7,9 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
 
 app = Flask(__name__)
-app.secret_key = "secret123"
+
+# 🔐 STRONG SECRET KEY (IMPORTANT)
+app.secret_key = "durgesh_super_secret_key_123456"
 
 courses = ["python","java","c","cpp","javascript","sql","php","csharp","kotlin","html","css"]
 
@@ -47,8 +49,8 @@ def home():
 @app.route('/admin-login', methods=['GET','POST'])
 def admin_login():
     if request.method == "POST":
-        username = request.form['username']
-        password = request.form['password']
+        username = request.form.get('username')
+        password = request.form.get('password')
 
         if username == "durgesh" and password == "admin123":
             session['admin'] = True
@@ -58,8 +60,8 @@ def admin_login():
 
     return render_template("admin_login.html")
 
-# 🔐 PROTECTED ADMIN PANEL
-@app.route('/admin', methods=['GET','POST'])
+# 🔐 ADMIN PANEL (PROTECTED)
+@app.route('/admin')
 def admin():
     if not session.get('admin'):
         return redirect('/admin-login')
@@ -72,6 +74,7 @@ def logout():
     session.pop('admin', None)
     return redirect('/')
 
+# ================= COURSE =================
 @app.route('/course/<course_id>')
 def course(course_id):
     conn = sqlite3.connect("database.db")
@@ -81,6 +84,7 @@ def course(course_id):
     conn.close()
     return render_template("course.html", data=data, course=course_id)
 
+# ================= ADD THEORY =================
 @app.route('/add_theory/<course_id>', methods=['POST'])
 def add_theory(course_id):
     if not session.get('admin'):
@@ -96,6 +100,7 @@ def add_theory(course_id):
 
     return redirect(f"/course/{course_id}")
 
+# ================= DELETE =================
 @app.route('/delete/<int:id>/<course>')
 def delete(id, course):
     if not session.get('admin'):
@@ -109,6 +114,7 @@ def delete(id, course):
 
     return redirect(f"/course/{course}")
 
+# ================= DOWNLOAD THEORY =================
 @app.route('/download_theory/<course_id>')
 def download_theory(course_id):
     conn = sqlite3.connect("database.db")
@@ -129,6 +135,7 @@ def download_theory(course_id):
     doc.build(content)
     return send_file(file_path, as_attachment=True)
 
+# ================= QUIZ =================
 @app.route('/quiz/<course_id>')
 def quiz(course_id):
     questions = all_questions[course_id]
@@ -156,6 +163,7 @@ def submit():
 
     return render_template("result.html", results=results, score=score, total=len(questions), percent=percent)
 
+# ================= CERTIFICATE =================
 @app.route('/get_certificate')
 def get_certificate():
     return render_template("get_certificate.html")
@@ -211,5 +219,6 @@ def certificate():
 def download():
     return send_file("static/certificate.pdf", as_attachment=True)
 
+# ================= RUN =================
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
