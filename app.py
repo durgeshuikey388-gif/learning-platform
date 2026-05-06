@@ -43,13 +43,34 @@ all_questions = {c: generate_questions(c) for c in courses}
 def home():
     return render_template("index.html", courses=courses)
 
-@app.route('/admin', methods=['GET','POST'])
-def admin():
+# 🔐 ADMIN LOGIN
+@app.route('/admin-login', methods=['GET','POST'])
+def admin_login():
     if request.method == "POST":
-        if request.form['password'] == "admin123":
+        username = request.form['username']
+        password = request.form['password']
+
+        if username == "durgesh" and password == "admin123":
             session['admin'] = True
-            return redirect('/')
+            return redirect('/admin')
+        else:
+            return "Wrong Username or Password"
+
+    return render_template("admin_login.html")
+
+# 🔐 PROTECTED ADMIN PANEL
+@app.route('/admin')
+def admin():
+    if not session.get('admin'):
+        return redirect('/admin-login')
+
     return render_template("admin.html")
+
+# 🔐 LOGOUT
+@app.route('/logout')
+def logout():
+    session.pop('admin', None)
+    return redirect('/')
 
 @app.route('/course/<course_id>')
 def course(course_id):
