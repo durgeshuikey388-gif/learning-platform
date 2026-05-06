@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Quiz</title>
+
+<style>
+body{
+    font-family: Arial;
+    background:#1e1e2f;
+    color:white;
+    padding:20px;
+}
+
+.timer{
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+.progress{
+    width:100%;
+    background:#444;
+    border-radius:10px;
+}
+
+.bar{
+    height:10px;
+    width:100%;
+    background:#4caf50;
+    border-radius:10px;
+}
+
+button{
+    padding:10px 20px;
+    background:#4caf50;
+    border:none;
+    color:white;
+    border-radius:8px;
+}
+</style>
+
+<script>
+let time = 120;
+
+function startTimer(){
+    let t = setInterval(()=>{
+        time--;
+        document.getElementById("time").innerText = time;
+
+        let percent = (time/120)*100;
+        document.getElementById("bar").style.width = percent+"%";
+
+        if(time<=0){
+            clearInterval(t);
+            document.forms[0].submit();
+        }
+    },1000);
+}
+
+window.onload = startTimer;
+</script>
+
+</head>
+
+<body>
+
+<div class="timer">⏳ Time Left: <span id="time">120</span>s</div>
+
+<div class="progress">
+    <div class="bar" id="bar"></div>
+</div>
+
+<h2>{{course.upper()}} Quiz</h2>
+
+<form method="POST" action="/submit">
+
+{% for q in questions %}
+    {% set idx = loop.index0 %}
+
+    <p><b>Q{{loop.index}}. {{q.q}}</b></p>
+
+    {% for opt in q.options %}
+        <label>
+            <input type="radio" name="q{{idx}}" value="{{opt}}">
+            {{opt}}
+        </label><br>
+    {% endfor %}
+    <br>
+{% endfor %}
+
+<button type="submit">Submit</button>
+
+</form>
+
+</body>
+</html>

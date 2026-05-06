@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+<h1>{{course.upper()}} Quiz</h1>
+
+<form method="post">
+
+{% for q in questions %}
+<p>{{ loop.index }}. {{ q.q }}</p>
+
+{% set idx = loop.index0 %}
+
+{% for option in q.a %}
+<input type="radio" name="q{{idx}}" value="{{option}}"> {{option}}<br>
+{% endfor %}
+
+<br>
+{% endfor %}
+
+<button type="submit">Submit</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

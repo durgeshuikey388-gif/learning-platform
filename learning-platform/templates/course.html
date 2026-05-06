@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{course}} Theory</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+            background: #f4f6f9;
+        }
+
+        h2 {
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .delete-btn {
+            color: red;
+            text-decoration: none;
+            float: right;
+            font-weight: bold;
+        }
+
+        textarea {
+            width: 100%;
+            height: 320px;
+            padding: 15px;
+            font-size: 16px;
+            border-radius: 10px;
+            border: 2px solid #333;
+            resize: vertical;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .actions {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            background: #2196F3;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        /* ✨ HTML content styling */
+        .content h1, .content h2, .content h3 {
+            margin-top: 15px;
+            color: #333;
+        }
+
+        .content p {
+            line-height: 1.6;
+        }
+
+        .content ul {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>{{course}} Theory</h2>
+
+<!-- ================= THEORY SHOW ================= -->
+{% for d in data %}
+<div class="card">
+
+    <!-- ✅ HTML FORMAT SHOW -->
+    <div class="content">
+        {{ d[2] | safe }}
+    </div>
+
+    {% if session.get('admin') %}
+    <a href="/delete/{{d[0]}}/{{course}}" class="delete-btn">❌ Delete</a>
+    {% endif %}
+
+</div>
+{% endfor %}
+
+
+<!-- ================= ADD THEORY ================= -->
+{% if session.get('admin') %}
+<h3>Add New Theory</h3>
+
+<form action="/add_theory/{{course}}" method="POST">
+
+    <textarea name="content"
+        placeholder="Paste or write full theory here using HTML like:
+<h2>Heading</h2>
+<p>Paragraph</p>
+<ul><li>Point</li></ul>"
+        required></textarea>
+
+    <br><br>
+    <button>➕ Add Theory</button>
+
+</form>
+{% endif %}
+
+
+<!-- ================= BUTTONS ================= -->
+<div class="actions">
+
+    <a href="/download_theory/{{course}}" class="btn">📥 Download PDF</a>
+
+    <a href="/quiz/{{course}}" class="btn">🧠 Start Quiz</a>
+
+    <a href="/" class="btn">🏠 Home</a>
+
+</div>
+
+</body>
+</html>

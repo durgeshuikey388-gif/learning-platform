@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Result</title>
+
+<style>
+body{
+    font-family: Arial;
+    background:#121212;
+    color:white;
+    padding:20px;
+}
+
+.correct{color:lime;}
+.wrong{color:red;}
+.card{
+    background:#1e1e2f;
+    padding:15px;
+    margin:10px;
+    border-radius:10px;
+}
+button{
+    padding:10px 20px;
+    background:#ff9800;
+    border:none;
+    border-radius:8px;
+}
+</style>
+
+</head>
+<body>
+
+<h1>🎯 Score: {{score}} / {{total}}</h1>
+<h2>📊 {{percent}}%</h2>
+
+{% for r in results %}
+<div class="card">
+    <p><b>{{r.q}}</b></p>
+
+    {% if r.status=="correct" %}
+        <p class="correct">✔ {{r.user}}</p>
+    {% else %}
+        <p class="wrong">✘ {{r.user}}</p>
+        <p>Correct: {{r.correct}}</p>
+    {% endif %}
+</div>
+{% endfor %}
+
+<a href="/get_certificate">
+    <button>🎓 Get Certificate</button>
+</a>
+
+</body>
+</html>

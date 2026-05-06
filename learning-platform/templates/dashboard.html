@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<body style="text-align:center; font-family:Arial">
+
+<h2><b>Welcome {{user}}</b></h2>
+
+{% for key,value in courses.items() %}
+<p><a href="/course/{{key}}"><b>{{value}}</b></a></p>
+{% endfor %}
+
+<a href="/logout"><b>Logout</b></a>
+
+</body>
+</html>

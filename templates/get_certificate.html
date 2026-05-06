@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Certificate</title>
+
+<style>
+body{
+    background:#222;
+    color:white;
+    text-align:center;
+    margin-top:100px;
+}
+
+input{
+    padding:10px;
+    border-radius:8px;
+    border:none;
+}
+
+button{
+    padding:10px 20px;
+    background:#4caf50;
+    border:none;
+    color:white;
+    border-radius:8px;
+}
+</style>
+
+</head>
+<body>
+
+<h2>Enter Your Name</h2>
+
+<form action="/certificate" method="POST">
+    <input type="text" name="name" required><br><br>
+    <button>Generate Certificate</button>
+</form>
+
+</body>
+</html>

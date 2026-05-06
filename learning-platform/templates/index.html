@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Learn Programming Theory</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial;
+    background: linear-gradient(135deg,#667eea,#764ba2);
+    color:white;
+}
+
+.container{
+    text-align:center;
+    margin-top:50px;
+}
+
+.card{
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    padding:20px;
+    margin:15px;
+    border-radius:15px;
+    display:inline-block;
+    width:250px;
+}
+
+a{
+    color:white;
+    text-decoration:none;
+    padding:8px 15px;
+    border:1px solid white;
+    border-radius:8px;
+    margin:5px;
+    display:inline-block;
+}
+
+a:hover{
+    background:white;
+    color:black;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+<h1>📘 Learn Programming Theory</h1>
+
+{% for c in courses %}
+<div class="card">
+    <h2>{{c.upper()}}</h2>
+    <a href="/course/{{c}}">Theory</a>
+    <a href="/quiz/{{c}}">Quiz</a>
+</div>
+{% endfor %}
+
+</div>
+
+</body>
+</html>
