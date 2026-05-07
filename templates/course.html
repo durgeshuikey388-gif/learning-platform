@@ -65,14 +65,23 @@
             text-decoration: none;
         }
 
-        /* ✨ HTML content styling */
-        .content h1, .content h2, .content h3 {
-            margin-top: 15px;
+        /* ✨ THEORY CONTENT STYLE */
+        .content {
+            white-space: pre-wrap;
+            line-height: 1.8;
+            font-size: 17px;
             color: #333;
         }
 
+        .content h1,
+        .content h2,
+        .content h3 {
+            margin-top: 15px;
+            color: #222;
+        }
+
         .content p {
-            line-height: 1.6;
+            margin-bottom: 10px;
         }
 
         .content ul {
@@ -89,9 +98,9 @@
 {% for d in data %}
 <div class="card">
 
-    <!-- ✅ HTML FORMAT SHOW -->
+    <!-- ✅ THEORY CONTENT -->
     <div class="content">
-        {{ d[2] | safe }}
+        {{ d[2] }}
     </div>
 
     {% if session.get('admin') %}
@@ -108,15 +117,13 @@
 
 <form action="/add_theory/{{course}}" method="POST">
 
-    <textarea name="content"
-        placeholder="Paste or write full theory here using HTML like:
-<h2>Heading</h2>
-<p>Paragraph</p>
-<ul><li>Point</li></ul>"
-        required></textarea>
+<textarea name="content"
+placeholder="Write or paste theory here..."
+required></textarea>
 
-    <br><br>
-    <button>➕ Add Theory</button>
+<br><br>
+
+<button type="submit">➕ Add Theory</button>
 
 </form>
 {% endif %}
@@ -125,11 +132,17 @@
 <!-- ================= BUTTONS ================= -->
 <div class="actions">
 
-    <a href="/download_theory/{{course}}" class="btn">📥 Download PDF</a>
+    <a href="/download_theory/{{course}}" class="btn">
+        📥 Download PDF
+    </a>
 
-    <a href="/quiz/{{course}}" class="btn">🧠 Start Quiz</a>
+    <a href="/quiz/{{course}}" class="btn">
+        🧠 Start Quiz
+    </a>
 
-    <a href="/" class="btn">🏠 Home</a>
+    <a href="/" class="btn">
+        🏠 Home
+    </a>
 
 </div>
 
