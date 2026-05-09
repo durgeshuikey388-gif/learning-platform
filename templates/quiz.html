@@ -4,22 +4,41 @@
 <title>Quiz</title>
 
 <style>
+
 body{
     font-family: Arial;
-    background:#1e1e2f;
-    color:white;
     padding:20px;
+
+    background-image: url('/static/bg.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    color:white;
+}
+
+.quiz-box{
+    background: rgba(0,0,0,0.6);
+
+    padding:30px;
+
+    border-radius:15px;
+
+    backdrop-filter: blur(10px);
+
+    box-shadow:0 0 15px rgba(255,255,255,0.2);
 }
 
 .timer{
-    font-size:20px;
-    margin-bottom:10px;
+    font-size:22px;
+    margin-bottom:15px;
 }
 
 .progress{
     width:100%;
     background:#444;
     border-radius:10px;
+    margin-bottom:20px;
 }
 
 .bar{
@@ -30,40 +49,77 @@ body{
 }
 
 button{
-    padding:10px 20px;
+    padding:12px 25px;
+
     background:#4caf50;
+
     border:none;
+
     color:white;
+
     border-radius:8px;
+
+    font-size:16px;
+
+    cursor:pointer;
 }
+
+button:hover{
+    background:#2e7d32;
+}
+
+h2{
+    text-align:center;
+    font-size:35px;
+    text-shadow:2px 2px 10px black;
+}
+
+label{
+    font-size:18px;
+}
+
 </style>
 
 <script>
+
 let time = 120;
 
 function startTimer(){
+
     let t = setInterval(()=>{
+
         time--;
+
         document.getElementById("time").innerText = time;
 
         let percent = (time/120)*100;
+
         document.getElementById("bar").style.width = percent+"%";
 
         if(time<=0){
+
             clearInterval(t);
+
             document.forms[0].submit();
         }
+
     },1000);
 }
 
 window.onload = startTimer;
+
 </script>
 
 </head>
 
 <body>
 
-<div class="timer">⏳ Time Left: <span id="time">120</span>s</div>
+<div class="quiz-box">
+
+<div class="timer">
+⏳ Time Left:
+<span id="time">120</span>s
+</div>
 
 <div class="progress">
     <div class="bar" id="bar"></div>
@@ -74,22 +130,40 @@ window.onload = startTimer;
 <form method="POST" action="/submit">
 
 {% for q in questions %}
+
     {% set idx = loop.index0 %}
 
-    <p><b>Q{{loop.index}}. {{q.q}}</b></p>
+    <p>
+    <b>
+    Q{{loop.index}}. {{q.q}}
+    </b>
+    </p>
 
     {% for opt in q.options %}
+
         <label>
-            <input type="radio" name="q{{idx}}" value="{{opt}}">
+            <input type="radio"
+                   name="q{{idx}}"
+                   value="{{opt}}">
+
             {{opt}}
-        </label><br>
+        </label>
+
+        <br>
+
     {% endfor %}
+
     <br>
+
 {% endfor %}
 
-<button type="submit">Submit</button>
+<button type="submit">
+Submit
+</button>
 
 </form>
+
+</div>
 
 </body>
 </html>

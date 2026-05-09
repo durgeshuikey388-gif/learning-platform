@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Learn Programming Theory</title>
+<title>Programming Theory Hub</title>
 
 <style>
 body{
     margin:0;
     font-family: Arial;
-    background: linear-gradient(135deg,#667eea,#764ba2);
+
+    background-image: url('/static/bg.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
     color:white;
 }
 
@@ -17,13 +22,15 @@ body{
 }
 
 .card{
-    background: rgba(255,255,255,0.1);
+    background: rgba(0,0,0,0.5);
     backdrop-filter: blur(10px);
     padding:20px;
     margin:15px;
     border-radius:15px;
     display:inline-block;
     width:250px;
+
+    box-shadow: 0 0 15px rgba(255,255,255,0.2);
 }
 
 a{
@@ -40,20 +47,33 @@ a:hover{
     background:white;
     color:black;
 }
+
+h1{
+    font-size:50px;
+    text-shadow: 2px 2px 10px black;
+}
 </style>
 
 </head>
+
 <body>
 
 <div class="container">
+
 <h1>Programming Theory Hub</h1>
 
 {% for c in courses %}
+
 <div class="card">
+
     <h2>{{c.upper()}}</h2>
+
     <a href="/course/{{c}}">Theory</a>
+
     <a href="/quiz/{{c}}">Quiz</a>
+
 </div>
+
 {% endfor %}
 
 </div>

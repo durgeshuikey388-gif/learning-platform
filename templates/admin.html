@@ -1,7 +1,85 @@
-<h2>Welcome Admin</h2>
+<!DOCTYPE html>
+<html>
+<head>
 
-<a href="/"> Home</a><br><br>
+<title>Admin Panel</title>
+
+<style>
+
+body{
+    font-family: Arial;
+    text-align:center;
+
+    background-image: url('/static/bg.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    color:white;
+}
+
+.panel{
+    width:500px;
+
+    margin:100px auto;
+
+    background: rgba(0,0,0,0.6);
+
+    padding:40px;
+
+    border-radius:15px;
+
+    backdrop-filter: blur(10px);
+
+    box-shadow:0 0 15px rgba(255,255,255,0.3);
+}
+
+a{
+    color:white;
+
+    text-decoration:none;
+
+    padding:10px 20px;
+
+    border:1px solid white;
+
+    border-radius:8px;
+
+    display:inline-block;
+
+    margin:10px;
+}
+
+a:hover{
+    background:white;
+    color:black;
+}
+
+h2{
+    font-size:35px;
+}
+
+p{
+    font-size:18px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="panel">
+
+<h2>Welcome Admin</h2>
 
 <p>You can now manage your website.</p>
 
-<a href="/logout"> Logout</a>
+<a href="/">🏠 Home</a>
+
+<a href="/logout">🚪 Logout</a>
+
+</div>
+
+</body>
+</html>
